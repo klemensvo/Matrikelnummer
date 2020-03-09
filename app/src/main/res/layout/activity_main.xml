@@ -23,5 +23,20 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView" android:layout_marginTop="36dp"
             android:textColorHint="#DBA350"/>
+    <Button
+            android:text="Abschicken"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendButton"
+            app:layout_constraintTop_toBottomOf="@+id/resultTextView"
+            android:layout_marginTop="220dp" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+    <TextView
+            android:text="Result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/resultTextView" app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/matrikelnummer"
+            android:layout_marginTop="96dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
