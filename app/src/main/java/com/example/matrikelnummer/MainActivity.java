@@ -2,8 +2,11 @@ package com.example.matrikelnummer;
 
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import com.example.se2_09126243_vospernik_klemens_einzelbeispiel.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,13 +19,15 @@ public class MainActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                
             }
         });
     }
 }
 
 /*
+
+Bsp AddNumbers
 public class MainActivity extends AppCompatActivity {
 
     @Override
