@@ -6,23 +6,54 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import com.example.se2_09126243_vospernik_klemens_einzelbeispiel.R;
+// import com.example.matrikelnummer; //_09126243_vospernik_klemens_einzelbeispiel.R;
 
 public class MainActivity extends AppCompatActivity {
+    EditText matrikelnummerInput;
+    TextView showResponseFromServer;
+    Button sendToServerButton;
+
+    String matrikelnummer;
+    String resultFromServer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button sendButton = (Button) findViewById(R.id.sendButton);
-        sendButton.setOnClickListener(new View.OnClickListener() {
+        matrikelnummerInput = (EditText) findViewById(R.id.matrikelnummerInput);
+        showResponseFromServer = (TextView) findViewById(R.id.resultFromServer);
+        sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
+
+        //Button sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
+        sendToServerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                matrikelnummer = matrikelnummerInput.getText().toString();
+                startTransmission();
+                System.out.println(resultFromServer);
+                showResponseFromServer.setText(resultFromServer);
             }
         });
     }
+
+    public void startTransmission() {
+        TCPCLient tcpClient = new TCPCLient();
+        Thread thread = new Thread(tcpClient);
+        tcpClient.setMatrikelnummer(matrikelnummer);
+        thread.start();
+
+        try  {
+            thread.join(); //todo set milliseconds?
+        } catch (InterruptedException ie) {
+            System.out.println("Der Thread wurde unterbrochen. Exception-Trace:\n");
+            ie.printStackTrace();
+        }
+
+        resultFromServer = tcpClient.getResult();
+    }
+
 }
 
 /*
