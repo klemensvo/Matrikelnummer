@@ -6,15 +6,17 @@ import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-// import com.example.matrikelnummer; //_09126243_vospernik_klemens_einzelbeispiel.R;
 
 public class MainActivity extends AppCompatActivity {
     EditText matrikelnummerInput;
-    TextView showResponseFromServer;
+    TextView showResultFromServer;
+    TextView showResultFromCalculation;
     Button sendToServerButton;
+    Button calculateButton;
 
     String matrikelnummer;
     String resultFromServer;
+    String resultFromCalculation;
 
 
     @Override
@@ -23,17 +25,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         matrikelnummerInput = (EditText) findViewById(R.id.matrikelnummerInput);
-        showResponseFromServer = (TextView) findViewById(R.id.resultFromServer);
-        sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
+        showResultFromServer = (TextView) findViewById(R.id.resultFromServer);
+        showResultFromCalculation = (TextView) findViewById(R.id.resultFromCalculation);
 
-        //Button sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
+        sendToServerButton = (Button) findViewById(R.id.sendToServerButton);
         sendToServerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 matrikelnummer = matrikelnummerInput.getText().toString();
                 startTransmission();
-                System.out.println(resultFromServer);
-                showResponseFromServer.setText(resultFromServer);
+                showResultFromServer.setText(resultFromServer);
+            }
+        });
+
+        calculateButton = (Button) findViewById(R.id.calculateButton);
+        calculateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                matrikelnummer = matrikelnummerInput.getText().toString();
+                resultFromCalculation = findCommonDenominatorsGreaterThanOne(matrikelnummer);
+                showResultFromCalculation.setText(resultFromCalculation);
             }
         });
     }
@@ -44,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         tcpClient.setMatrikelnummer(matrikelnummer);
         thread.start();
 
-        try  {
+        try {
             thread.join(); //todo set milliseconds?
         } catch (InterruptedException ie) {
             System.out.println("Der Thread wurde unterbrochen. Exception-Trace:\n");
@@ -54,9 +65,81 @@ public class MainActivity extends AppCompatActivity {
         resultFromServer = tcpClient.getResult();
     }
 
+    public String findCommonDenominatorsGreaterThanOne(String matrikelnummer) {
+        /*Teiler von 2 Ziffern > 1 genau dann, wenn entweder beide zu vergleichende Ziffern mod 2 == 0 oder
+        beide zu vergleichende Ziffern mod 3 == 0 und beide Ziffern != 0 (vereinfachter Test auf
+        Gemeinsamen Teiler größer 1)
+        */
+
+        int[] ziffer = new int[8];
+        for (int i = 0; i < matrikelnummer.length(); i++) {
+            ziffer[i] = Integer.parseInt(matrikelnummer.substring(i, i + 1));
+        }
+        boolean commonDenominator = false;
+        String result = "Gemeinsamer Teiler an folgenden Indices\n" +
+                "(Index beginnt bei 0):\n";
+        String buildingBlock = "";
+        for (int i = 0; i < matrikelnummer.length() - 1; i++) {
+            for (int j = i + 1; j < matrikelnummer.length(); j++) {
+                if ((ziffer[i] != 0 && ziffer[j] != 0) &&
+                        ((ziffer[i] % 2 == 0 && ziffer[j] % 2 == 0) ||
+                                (ziffer[i] % 3 == 0 && ziffer[j] % 3 == 0))) {
+                    //System.out.println("Index i = " + i + ", Index j = " + j);
+                    buildingBlock = "\n" + "Index " + i + " und " + j;
+                    result += buildingBlock;
+                    commonDenominator = true;
+                }
+            }
+        }
+        if (commonDenominator) {
+            result += "\n";
+        } else {
+            result += "\n -- keine gemeinsamen Teiler gefunden --\n";
+        }
+
+        return result;
+    }
+
 }
 
+
+
+
 /*
+public class checkForGCD {
+
+    public static void main(String[] args) {
+        String matrikelnummer = "09126243";
+        checkForGCD.divideAndCheck(matrikelnummer);
+    }
+
+    public static void divideAndCheck(String matrikelnummer) {
+        int[] ziffer = new int[8];
+        for (int i = 0; i < matrikelnummer.length(); i++) {
+            ziffer[i] = Integer.parseInt(matrikelnummer.substring(i, i + 1));
+            //System.out.println(ziffer[i]);
+        }
+
+        for (int i = 0; i < matrikelnummer.length() - 1; i++) {
+            for (int j = i + 1; j < matrikelnummer.length(); j++) { */
+                /*ggT > 1 genau dann, wenn entweder beide zu vergleichende Ziffern mod 2 == 0 oder
+                beide zu vergleichende Ziffern mod 3 == 0 und beide Ziffern != 0 (vereinfachter GGT-Test)
+                 */
+                /*
+                if ((ziffer[i] != 0 && ziffer[j] != 0) &&
+                        ((ziffer[i] % 2 == 0 && ziffer[j] % 2 == 0) ||
+                        (ziffer[i] % 3 == 0 && ziffer[j] % 3 == 0))) {
+                        System.out.println("Index i = " + i + ", Index j = " + j);
+                        }
+                        }
+                        }
+
+
+                        }
+
+
+                        }
+
 
 Bsp AddNumbers
 public class MainActivity extends AppCompatActivity {

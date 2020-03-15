@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="60dp" android:textSize="24sp" android:textColor="#009688"/>
+            android:layout_marginTop="16dp" android:textSize="24sp" android:textColor="#009688"/>
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -21,37 +21,39 @@
             android:ems="8"
             android:id="@+id/matrikelnummerInput" android:hint="Matrikelnummer"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" android:layout_marginTop="36dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView" android:layout_marginTop="24dp"
             android:textColorHint="#DBA350"/>
-    <Button
-            android:text="Anfrage an Server"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/sendToServerButton"
-            app:layout_constraintTop_toBottomOf="@+id/resultFromServer"
-            android:layout_marginTop="44dp"
-            app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="56dp"
-            android:layout_marginStart="56dp"/>
     <TextView
             android:text="Result From Server"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resultFromServer" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/matrikelnummerInput"
-            android:layout_marginTop="44dp" app:layout_constraintHorizontal_bias="0.498"/>
+            android:layout_marginTop="16dp" app:layout_constraintHorizontal_bias="0.498" android:paddingLeft="20px"
+            android:paddingRight="20px"/>
     <TextView
             android:text="Result From Calculation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/resultFromCalculation" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toBottomOf="@+id/sendToServerButton"
-            android:layout_marginTop="56dp"/>
+            android:layout_marginTop="20dp" app:layout_constraintHorizontal_bias="0.498" android:paddingLeft="20px"
+            android:paddingRight="20px" android:scrollbarAlwaysDrawVerticalTrack="true"/>
+    <Button
+            android:text="Anfrage an Server"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sendToServerButton"
+            app:layout_constraintTop_toBottomOf="@+id/resultFromServer"
+            android:layout_marginTop="16dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginLeft="60dp" android:layout_marginStart="60dp"/>
     <Button
             android:text="Berechne"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" tools:layout_editor_absoluteY="281dp"
+            android:layout_height="wrap_content"
             android:id="@+id/calculateButton" app:layout_constraintStart_toEndOf="@+id/sendToServerButton"
             android:layout_marginLeft="36dp" android:layout_marginStart="36dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.0"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.054"
+            app:layout_constraintTop_toBottomOf="@+id/resultFromServer" android:layout_marginTop="16dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
