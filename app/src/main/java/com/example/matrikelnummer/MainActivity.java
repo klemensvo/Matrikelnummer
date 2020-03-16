@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public String findCommonDenominatorsGreaterThanOne(String matrikelnummer) {
-        /*Teiler von 2 Ziffern > 1 genau dann, wenn entweder beide zu vergleichende Ziffern mod 2 == 0 oder
+        /*
+        Anmerkung: Teiler von 2 Ziffern > 1 genau dann, wenn entweder beide zu vergleichende Ziffern mod 2 == 0 oder
         beide zu vergleichende Ziffern mod 3 == 0 und beide Ziffern != 0 (vereinfachter Test auf
         Gemeinsamen Teiler größer 1)
         */
@@ -76,15 +77,14 @@ public class MainActivity extends AppCompatActivity {
             ziffer[i] = Integer.parseInt(matrikelnummer.substring(i, i + 1));
         }
         boolean commonDenominator = false;
-        String result = "Gemeinsamer Teiler an folgenden Indices\n" +
-                "(Index beginnt bei 0):\n";
+        String result = "Gemeinsamer Teiler an folgenden Indices,\n" +
+                "alle Teiler größer als 1, Index beginnt bei 0:\n";
         String buildingBlock = "";
         for (int i = 0; i < matrikelnummer.length() - 1; i++) {
             for (int j = i + 1; j < matrikelnummer.length(); j++) {
                 if ((ziffer[i] != 0 && ziffer[j] != 0) &&
                         ((ziffer[i] % 2 == 0 && ziffer[j] % 2 == 0) ||
                                 (ziffer[i] % 3 == 0 && ziffer[j] % 3 == 0))) {
-                    //System.out.println("Index i = " + i + ", Index j = " + j);
                     buildingBlock = "\n" + "Index " + i + " und " + j;
                     result += buildingBlock;
                     commonDenominator = true;
